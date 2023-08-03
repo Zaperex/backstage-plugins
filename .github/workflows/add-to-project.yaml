@@ -1,11 +1,25 @@
-name: Add all issues that have the 'status/triage' labels to project dashboard
+name: Apply labels to new issues and add them to the janus-planning project
 
 on:
-  repository_dispatch:
+  issues:
     types:
-      - label_applied
-
+      - opened
 jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write 
+    steps:
+      - name: Apply Label to Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["status/triage"]
+            })
   add-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
