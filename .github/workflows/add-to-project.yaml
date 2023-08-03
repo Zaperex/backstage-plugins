@@ -3,7 +3,7 @@ name: Add all issues that have the 'status/triage' labels to project dashboard
 on:
   issues:
     types:
-      - opened
+      - labeled
 
 jobs:
   add-to-project:
