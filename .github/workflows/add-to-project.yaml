@@ -15,4 +15,4 @@ jobs:
         with:
           project-url: https://github.com/users/Zaperex/projects/2
           github-token: ${{ secrets.PRIVATE_TOKEN }}
-          issue_number: ${{ needs.apply-label.outputs.issue-number }}
+          issue-number: ${{ github.event.client_payload.ISSUE_NUMBER }}

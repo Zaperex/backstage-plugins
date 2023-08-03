@@ -9,15 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number }}  
     steps:
-      - name: Get Issue Number
-        id: get_issue_number
-        run: echo "::set-output name=issue_number::${{ toJson(github.event.issue.number) }}"
       - name: Apply Label to Issue
         uses: actions/github-script@v6
         with:
           script: |
-            const issue_number = '${{ steps.get_issue_number.outputs.issue_number }}';
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
