@@ -1,9 +1,9 @@
 name: Add all issues that have the 'status/triage' labels to project dashboard
 
 on:
-  workflow_run:
-    workflows: ["Apply labels to issues"]
-    types: [completed]
+  repository_dispatch:
+    types:
+      - label_applied
 
 jobs:
   add-to-project:
@@ -14,5 +14,4 @@ jobs:
         with:
           project-url: https://github.com/users/Zaperex/projects/2
           github-token: ${{ secrets.PRIVATE_TOKEN }}
-          content-type: Issue
-          content-id: ${{ github.event.client_payload.ISSUE_NUMBER }}
+          labels: status/triage

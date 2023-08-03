@@ -8,9 +8,7 @@ jobs:
   label_issues:
     runs-on: ubuntu-latest
     permissions:
-      issues: write
-    env:
-      ISSUE_NUMBER: ${{ github.event.issue.number }}  
+      issues: write 
     steps:
       - name: Apply Label to Issue
         uses: actions/github-script@v6
@@ -22,3 +20,8 @@ jobs:
               repo: context.repo.repo,
               labels: ["status/triage"]
             })
+      - name: Trigger Add Issue to Project Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PRIVATE_TOKEN }}
+          event-type: label_applied
