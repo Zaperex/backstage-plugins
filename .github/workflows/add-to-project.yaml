@@ -1,9 +1,9 @@
 name: Add all issues that have the 'status/triage' labels to project dashboard
 
 on:
-  issues:
-    types:
-      - labeled
+  workflow_run:
+    workflows: ["Apply labels to issues"]
+    types: [completed]
 
 jobs:
   add-to-project:
